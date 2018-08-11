@@ -15,7 +15,7 @@ public class CustomAdapter extends BaseAdapter {
     private List<ItemBean> items;
     private LayoutInflater inflater;
     
-   //dftttttt
+   //dftttttt htytyrtytrtyr 是的是的股份
     private ImageView image;
     private TextView text;
 
