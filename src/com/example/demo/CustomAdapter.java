@@ -15,7 +15,7 @@ public class CustomAdapter extends BaseAdapter {
     private List<ItemBean> items;
     private LayoutInflater inflater;
     
-   //dftttttt日日日
+   //dftttttt日日日电热毯舔t645
     private ImageView image;
     private TextView text;
 
