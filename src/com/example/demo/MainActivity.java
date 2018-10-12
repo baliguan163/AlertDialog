@@ -5,10 +5,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -30,6 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button customAdateprDiaog;
     private Button customViewDiaog;
     private Button customViewDiaog1;
+    private Button customViewDiaog2;
     //����һ��AlertDialog������
     private AlertDialog.Builder builder;
     private AlertDialog.Builder builder2;
@@ -44,13 +50,24 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        //ʵ�����ؼ�
         simpleDiaog= (Button) findViewById(R.id.btn_simple_dialog);
         simpleListDiaog= (Button) findViewById(R.id.btn_simple_list_dialog);
         singleChoiceDiaog= (Button) findViewById(R.id.btn_single_choice_dialog);
         multiChoiceDiaog= (Button) findViewById(R.id.btn_multi_choice_dialog);
-        
+     
         customAdateprDiaog= (Button) findViewById(R.id.btn_custom_adapter_dialog);
+        customViewDiaog= (Button) findViewById(R.id.btn_custom_view_dialog);
+        customViewDiaog1= (Button) findViewById(R.id.custom_view_dialog1);
+        customViewDiaog2= (Button) findViewById(R.id.custom_view_dialog2);
+        simpleDiaog.setOnClickListener(this);
+        simpleListDiaog.setOnClickListener(this);
+        singleChoiceDiaog.setOnClickListener(this);
+        multiChoiceDiaog.setOnClickListener(this);
+        customAdateprDiaog.setOnClickListener(this);
+        customViewDiaog.setOnClickListener(this);
+        customViewDiaog1.setOnClickListener(this);
+        customViewDiaog2.setOnClickListener(this);
+        
         items = new ArrayList<>();
         items.add(new ItemBean(R.drawable.ic_launcher,"You can call me xiaoming"));
         items.add(new ItemBean(R.drawable.ic_launcher, "I'm android xiao"));
@@ -60,28 +77,6 @@ public class MainActivity extends Activity implements OnClickListener {
         items.add(new ItemBean(R.drawable.ic_launcher, "I'm android 4"));
         items.add(new ItemBean(R.drawable.ic_launcher, "I'm android 5"));
         adapter = new CustomAdapter(items,getApplicationContext());
-        //
-        customViewDiaog= (Button) findViewById(R.id.btn_custom_view_dialog);
-        
-        //
-        customViewDiaog1= (Button) findViewById(R.id.custom_view_dialog1);
-       
-        
-        
-        
-        
-        //��������¼�
-        simpleDiaog.setOnClickListener(this);
-        simpleListDiaog.setOnClickListener(this);
-        singleChoiceDiaog.setOnClickListener(this);
-        multiChoiceDiaog.setOnClickListener(this);
-        customAdateprDiaog.setOnClickListener(this);
-        customViewDiaog.setOnClickListener(this);
-        customViewDiaog1.setOnClickListener(this);
-        
-        
-    	
-    	
     }
 
     
@@ -109,7 +104,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()){
         case R.id.btn_simple_dialog:
-            showSimpleDialog(view);//��ʾ����Dialog
+            showSimpleDialog(view);
             break;
         case R.id.btn_simple_list_dialog:
             showSimpleListDialog(view);
@@ -129,13 +124,17 @@ public class MainActivity extends Activity implements OnClickListener {
         case R.id.custom_view_dialog1:
         	showCustomMyTest1(view);
             break;
+        case R.id.custom_view_dialog2:
+        	dialogShow2(view);
+            break;
     }
 		
 	}
-	//��ʾ����Dialog
+	
     private void showSimpleDialog(View view) {
         builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.simple_dialog);
+        builder.setIcon(R.drawable.ic_launcher);
         builder.setMessage(R.string.dialog_message);
         //�����·�button����¼�
         builder.setPositiveButton(R.string.postive_button, new DialogInterface.OnClickListener() {
@@ -323,6 +322,43 @@ public class MainActivity extends Activity implements OnClickListener {
     }
     
     
+    
+    /**
+     * 自定义布局
+     * setView()只会覆盖AlertDialog的Title与Button之间的那部分，而setContentView()则会覆盖全部，
+     * setContentView()必须放在show()的后面
+     */
+    private void dialogShow2(View view) {
+    	Context mContext = MainActivity.this;
+        AlertDialog.Builder builder = new Builder(mContext);
+        
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View v = inflater.inflate(R.layout.update_manage_dialog, null);
+        TextView content = (TextView) v.findViewById(R.id.dialog_content);
+        Button btn_sure = (Button) v.findViewById(R.id.dialog_btn_sure);
+        Button btn_cancel = (Button) v.findViewById(R.id.dialog_btn_cancel);
+        //builer.setView(v);//这里如果使用builer.setView(v)，自定义布局只会覆盖title和button之间的那部分
+        final Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setContentView(v);//自定义布局应该在这里添加，要在dialog.show()的后面
+        //dialog.getWindow().setGravity(Gravity.CENTER);//可以设置显示的位置
+        btn_sure.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(MainActivity.this, "ok", 1).show();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                Toast.makeText(MainActivity.this, "no", 1).show();
+            }
+        });
+    }
+
     
     
     

@@ -14,6 +14,7 @@
     <string name="custom_adapter_dialog">自定义Adapter对话框</string>
     <string name="custom_view_dialog">自定义View对话框</string>
     <string name="custom_view_dialog1">自定义对话框1</string>
+    <string name="custom_view_dialog2">自定义对话框2</string>
     
     <!-- 对话框所需要的字符串资源-->
     <string name="dialog_message">这里是内容区域</string>

@@ -82,5 +82,18 @@
         android:layout_marginRight="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+      
+       <Button
+        android:id="@+id/custom_view_dialog2"
+        android:text="@string/custom_view_dialog2"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:background="#449F1D"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+       
     
 </LinearLayout>
