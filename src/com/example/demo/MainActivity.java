@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,6 +46,10 @@ public class MainActivity extends Activity implements OnClickListener {
     //
     private View bottomView;
     private ListView lvCarIds;
+    
+   //ListView数据源
+    private List<ItemBeanMac> data;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,14 @@ public class MainActivity extends Activity implements OnClickListener {
         items.add(new ItemBean(R.drawable.ic_launcher, "I'm android 4"));
         items.add(new ItemBean(R.drawable.ic_launcher, "I'm android 5"));
         adapter = new CustomAdapter(items,getApplicationContext());
+        
+        data = new ArrayList<ItemBeanMac>();
+        ItemBeanMac  itemBean = new ItemBeanMac();
+        for(int i = 0; i < 20; i ++){
+        	itemBean.setAddressMac("XX:XX:D0:EB:03:78");
+        	itemBean.setBindStatus("未绑");
+            data.add(itemBean);
+        }
     }
 
     
@@ -282,10 +295,9 @@ public class MainActivity extends Activity implements OnClickListener {
     
     //my test
     private void showCustomMyTest1(View view){
-    	
-    	 bottomView = View.inflate(MainActivity.this,R.layout.carids_dialog,null);//���ListView����
-         lvCarIds = (ListView) bottomView.findViewById(R.id.lv_carids);//��ʼ��ListView�ؼ�
-         adapter = new CustomAdapter(items,getApplicationContext());
+    	bottomView = View.inflate(MainActivity.this,R.layout.carids_dialog,null);//���ListView����
+        lvCarIds = (ListView) bottomView.findViewById(R.id.lv_carids);//��ʼ��ListView�ؼ�
+        adapter = new CustomAdapter(items,getApplicationContext());
  	    lvCarIds.setAdapter(adapter);
  	    lvCarIds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
              @Override
@@ -329,14 +341,23 @@ public class MainActivity extends Activity implements OnClickListener {
      * setContentView()必须放在show()的后面
      */
     private void dialogShow2(View view) {
-    	Context mContext = MainActivity.this;
-        AlertDialog.Builder builder = new Builder(mContext);
-        
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View v = inflater.inflate(R.layout.update_manage_dialog, null);
+        View v = LayoutInflater.from(MainActivity.this).inflate(R.layout.update_manage_dialog, null);
         TextView content = (TextView) v.findViewById(R.id.dialog_content);
+        ListView mList = (ListView) v.findViewById(R.id.mList);
         Button btn_sure = (Button) v.findViewById(R.id.dialog_btn_sure);
         Button btn_cancel = (Button) v.findViewById(R.id.dialog_btn_cancel);
+        
+        MacAdapter adapter = new MacAdapter(data,getApplicationContext());
+        mList.setAdapter(adapter);
+        mList.setOnItemClickListener(new ListView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this,"我是item点击事件 i = " + i + "l = " + l ,
+                		Toast.LENGTH_SHORT).show();
+            }
+        });
+  
+        AlertDialog.Builder builder = new Builder(MainActivity.this);
         //builer.setView(v);//这里如果使用builer.setView(v)，自定义布局只会覆盖title和button之间的那部分
         final Dialog dialog = builder.create();
         dialog.show();

@@ -5,37 +5,52 @@
     android:background="#00FFFFFF" >
 
     <RelativeLayout
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:layout_centerInParent="true"
         android:background="@drawable/update_bg" >
-
         <TextView
             android:id="@+id/dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="温馨提示"
             android:textSize="18sp" />
-
         <TextView
             android:id="@+id/dialog_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_below="@+id/dialog_title"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="原理是基本\n实践出真知"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:autoText="true"
+            android:text="原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本本原理是基本原理是基本原理是基本"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@+id/dialog_content"
+            android:layout_above="@+id/btnOpe"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" >
+          <ListView
+		        android:id="@+id/mList"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+		        </ListView>
+         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnOpe"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal" >
-
             <Button
                 android:id="@+id/dialog_btn_cancel"
                 android:layout_width="0dp"
@@ -45,7 +60,6 @@
                 android:text="取消"
                 android:textColor="#AAAAAA"
                 android:textSize="14sp" />
-
             <Button
                 android:id="@+id/dialog_btn_sure"
                 android:layout_width="0dp"

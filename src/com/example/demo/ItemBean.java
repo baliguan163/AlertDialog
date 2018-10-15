@@ -7,6 +7,9 @@ public class ItemBean
     private int imageId;
     private String message;
 
+    public ItemBean() {
+    }
+    
     public ItemBean(int imageId, String message) {
         this.imageId = imageId;
         this.message = message;
